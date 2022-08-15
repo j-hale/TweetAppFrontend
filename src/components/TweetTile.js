@@ -1,10 +1,16 @@
 import ReplyList from "./ReplyList";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import StateContext from "../StateContext";
 
 function TweetTile(props) {
 	const tweet = props.tweet;
 	const [replyArray, setReplyArray] = useState([]);
+	const [liked, setLiked] = useState(false);
+	const [likeCount, setLikeCount] = useState(tweet.userLikes.length);
+	const appState = useContext(StateContext);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		async function getReplyList() {
@@ -27,17 +33,61 @@ function TweetTile(props) {
 		getReplyList();
 	}, []);
 
-	//make a call to the api to get tweet's replies
+	useEffect(() => {
+		if (appState.activeUser != null) {
+			// console.log("Debug line");
+			// console.log(appState.activeUser);
+			const activeUser = JSON.parse(appState.activeUser);
+			const username = activeUser.loginID;
+			setLiked(false);
+			for (var i = 0; i < tweet.userLikes.length; i++) {
+				if (tweet.userLikes[i].loginID === username) {
+					setLiked(true);
+				}
+			}
+		}
+	}, []);
+
+	async function handleLike() {
+		if (appState.activeUser != null) {
+			const activeUser = JSON.parse(appState.activeUser);
+			const username = activeUser.loginID;
+			try {
+				const response = await Axios.put(
+					"http://localhost:8080/api/v1.0/tweets/" +
+						username +
+						"/like/" +
+						tweet.tweetID
+				);
+				if (response.data) {
+					setLikeCount(likeCount + 1);
+					setLiked(true);
+				} else {
+					console.log("Like failed for some reason");
+				}
+			} catch (error) {
+				console.log("Failure to submit get replies request");
+			}
+		} else {
+			console.log("You must be logged in to like a tweet");
+		}
+	}
+
+	function handleReply() {
+		navigate("/reply/" + tweet.tweetID);
+	}
 
 	return (
 		<div className="tweet-tile">
 			<hr />
-			<a href="#">{tweet.user.loginID}</a>
+			<Link to={"/profile/" + tweet.user.loginID}>{tweet.user.loginID}</Link>
 			<p>{tweet.body}</p>
 			<p>{tweet.tag}</p>
 			<p>
-				Likes: <span>{tweet.userLikes.length}</span>{" "}
-			</p>
+				Likes: <span>{likeCount}</span>{" "}
+			</p>{" "}
+			{liked ? "LIKED" : <button onClick={handleLike}>Like</button>}{" "}
+			<button onClick={handleReply}>Reply</button>
 			<ReplyList replyArray={replyArray} />
 			<hr />
 		</div>

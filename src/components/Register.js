@@ -27,13 +27,10 @@ function Register() {
 					password: password,
 				});
 				console.log("register request succesful");
-				setUsername("");
-				setEmail("");
-				setFirstName("");
-				setLastName("");
-				setPassword("");
-				setConfirmPassword("");
+
+				navigate("/home");
 			} catch (error) {
+				alert("Failure to register");
 				console.log("Failure to submit register request");
 			}
 		} else {

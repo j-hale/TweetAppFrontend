@@ -28,7 +28,7 @@ function Tweets() {
 
 	async function handleSearch(e) {
 		e.preventDefault();
-		if (searchText == "") {
+		if (searchText.trim() === "") {
 			getTweetList();
 		} else {
 			try {

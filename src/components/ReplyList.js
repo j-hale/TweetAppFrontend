@@ -5,7 +5,6 @@ function ReplyList(props) {
 
 	return (
 		<div className="reply-list">
-			<h4>Replies:</h4>
 			{replyArray.map((theReply) => {
 				return <ReplyTile reply={theReply} />;
 			})}

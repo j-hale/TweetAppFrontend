@@ -14,6 +14,7 @@ import Profile from "./components/Profile";
 import CreateTweet from "./components/CreateTweet";
 import StateContext from "./StateContext";
 import DispatchContext from "./DispatchContext";
+import ReplyForm from "./components/ReplyForm";
 
 function App() {
 	const initialState = {
@@ -26,10 +27,10 @@ function App() {
 			case "login":
 				localStorage.setItem("activeUser", JSON.stringify(action.responseData));
 				draft.loggedIn = true;
-				draft.activeUser = action.responseData;
-				console.log("Debugging lines:");
-				console.log(draft.activeUser);
-				console.log(JSON.parse(localStorage.getItem("activeUser")));
+				draft.activeUser = JSON.stringify(action.responseData);
+				// console.log("Debugging lines:");
+				// console.log(draft.activeUser);
+				// console.log(JSON.parse(localStorage.getItem("activeUser")));
 				break;
 			case "logout":
 				localStorage.removeItem("activeUser");
@@ -47,7 +48,8 @@ function App() {
 				<BrowserRouter>
 					<Header />
 					<Routes>
-						<Route path="/profile" element={<Profile />} />
+						<Route path="/reply/:targetTweetID" element={<ReplyForm />} />
+						<Route path="/profile/:targetUsername" element={<Profile />} />
 						<Route path="/users" element={<Users />} />
 						<Route path="/tweets" element={<Tweets />} />
 						<Route path="/login" element={<Login />} />
