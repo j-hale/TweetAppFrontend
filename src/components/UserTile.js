@@ -5,9 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 function UserTile(props) {
 	const user = props.user;
 	return (
-		<div className="user-tile">
+		<div className="tweet-tile">
 			<hr />
-			<Link to={"/profile/" + user.loginID}>{user.loginID}</Link>
+			<Link to={"/profile/" + user.loginID} className="tweet-user">
+				<strong>
+					<u>{user.loginID}</u>
+				</strong>
+			</Link>
 			<p>
 				{user.firstName} {user.lastName}
 			</p>

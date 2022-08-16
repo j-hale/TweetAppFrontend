@@ -6,7 +6,12 @@ function ReplyList(props) {
 	return (
 		<div className="reply-list">
 			{replyArray.map((theReply) => {
-				return <ReplyTile reply={theReply} />;
+				return (
+					<>
+						<ReplyTile reply={theReply} />
+						<p></p>
+					</>
+				);
 			})}
 		</div>
 	);

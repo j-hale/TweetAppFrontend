@@ -58,12 +58,16 @@ function Profile() {
 
 	return (
 		<div className="profile-page">
-			<a href="#">Generic Photo</a>
-			<h3>{retrievedUsername}</h3>
-			<h4>
-				{firstName} {lastName}
-			</h4>
-			<hr />
+			<div className="profile-tile">
+				<hr />
+
+				<h3>{retrievedUsername}</h3>
+				<h4>
+					{firstName} {lastName}
+				</h4>
+				<hr />
+			</div>
+
 			<div className="tweets-list">
 				{tweetArray.map((theTweet) => {
 					return <TweetTile tweet={theTweet} />;

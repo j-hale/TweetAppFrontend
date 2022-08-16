@@ -64,7 +64,7 @@ function Tweets() {
 				</button>
 			</form>
 			<br />
-			<hr />
+
 			<div className="tweets-list">
 				{tweetArray.map((theTweet) => {
 					return <TweetTile tweet={theTweet} />;

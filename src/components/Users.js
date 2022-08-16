@@ -62,13 +62,12 @@ function Users() {
 				</button>
 			</form>
 			<br />
-			<hr />
+
 			<div className="users-list">
 				{userArray.map((theUser) => {
 					return <UserTile user={theUser} />;
 				})}
 			</div>
-			<hr />
 		</div>
 	);
 }

@@ -43,25 +43,29 @@ function CreateTweet() {
 		<div className="create-tweet-page">
 			<br />
 			<h3>Create Tweet</h3>
-			<br />
-			<form onSubmit={handleSubmit}>
-				<textarea
-					onChange={(e) => setBody(e.target.value)}
-					placeholder="Enter Tweet Body"
-					name="body"
-				/>
-				<br />
-				<textarea
-					onChange={(e) => setTag(e.target.value)}
-					placeholder="Enter Tweet Tag"
-					name="tag"
-				/>
-				<br />
-				<button type="button" onClick={handleCancel}>
-					Cancel
-				</button>{" "}
-				<button type="submit">Post</button>{" "}
-			</form>
+
+			<div className="create-tweet-form">
+				<hr />
+				<form onSubmit={handleSubmit}>
+					<textarea
+						onChange={(e) => setBody(e.target.value)}
+						placeholder="Enter Tweet Body"
+						name="body"
+					/>
+					<br />
+					<textarea
+						onChange={(e) => setTag(e.target.value)}
+						placeholder="Enter Tweet Tag"
+						name="tag"
+					/>
+					<br />
+					<button type="button" onClick={handleCancel}>
+						Cancel
+					</button>{" "}
+					<button type="submit">Post</button>{" "}
+				</form>
+				<hr />
+			</div>
 		</div>
 	);
 }

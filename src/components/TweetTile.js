@@ -80,14 +80,23 @@ function TweetTile(props) {
 	return (
 		<div className="tweet-tile">
 			<hr />
-			<Link to={"/profile/" + tweet.user.loginID}>{tweet.user.loginID}</Link>
+			<Link className="tweet-user" to={"/profile/" + tweet.user.loginID}>
+				<strong>
+					<u>{tweet.user.loginID}</u>
+				</strong>
+			</Link>
 			<p>{tweet.body}</p>
-			<p>{tweet.tag}</p>
+			<p className="tweet-tag">
+				<strong>
+					<i>{tweet.tag}</i>
+				</strong>
+			</p>
 			<p>
 				Likes: <span>{likeCount}</span>{" "}
 			</p>{" "}
 			{liked ? "LIKED" : <button onClick={handleLike}>Like</button>}{" "}
 			<button onClick={handleReply}>Reply</button>
+			<p></p>
 			<ReplyList replyArray={replyArray} />
 			<hr />
 		</div>

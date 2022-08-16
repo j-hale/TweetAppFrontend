@@ -17,6 +17,18 @@
 	border-radius: 4px;
 }
 
+.header-right button {
+	float: left;
+	color: black;
+	text-align: center;
+	padding: 12px;
+	text-decoration: none;
+	font-size: 18px;
+	line-height: 25px;
+	border-radius: 25px;
+	background-color: #ffeacc;
+}
+
 .home-body {
 	text-align: center;
 }
@@ -36,7 +48,12 @@
 
 /* Change the background color on mouse-over */
 .header a:hover {
-	background-color: rgb(215, 248, 254);
+	background-color: #e7f5ff;
+	/*color: rgb(0, 42, 255);*/
+}
+
+.header button:hover {
+	background-color: #fef5e8;
 	/*color: rgb(0, 42, 255);*/
 }
 
@@ -61,6 +78,68 @@
 
 .users-page {
 	text-align: center;
+}
+
+.create-tweet-page {
+	text-align: center;
+}
+
+.tweet-tile {
+	background-color: #ffeacc;
+}
+
+.tweet-tile button {
+	background-color: #cceaff;
+	border-radius: 25px;
+	padding: 6px;
+}
+
+.tweet-tile button:hover {
+	background-color: #e7f5ff;
+}
+
+.create-tweet-form button {
+	background-color: #cceaff;
+	border-radius: 25px;
+	padding: 6px;
+}
+
+.create-tweet-form button:hover {
+	background-color: #e7f5ff;
+}
+
+.reply-list {
+	border-radius: 100px;
+}
+
+.reply-tile {
+	background-color: #cceaff;
+	border-radius: 100px;
+	padding: 10px;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.tweet-user {
+	color: black;
+	text-decoration: none;
+}
+
+.reply-user {
+	color: black;
+	text-decoration: none;
+}
+
+.create-tweet-form {
+	background-color: #ffeacc;
+}
+
+.profile-page {
+	text-align: center;
+}
+
+.profile-tile {
+	background-color: #cceaff;
 }
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
