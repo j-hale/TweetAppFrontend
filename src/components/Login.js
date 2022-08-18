@@ -5,14 +5,25 @@ import DispatchContext from "../DispatchContext";
 import StateContext from "../StateContext";
 
 function Login() {
-	const [username, setUsername] = useState();
-	const [password, setPassword] = useState();
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [incorrect, setIncorrect] = useState(false);
 	const navigate = useNavigate();
 	const appDispatch = useContext(DispatchContext);
 	const appState = useContext(StateContext);
 
 	function handleCancel() {
 		navigate("/home");
+	}
+
+	function handleUsernameTyping(typing) {
+		setUsername(typing);
+		setIncorrect(false);
+	}
+
+	function handlePasswordTyping(typing) {
+		setPassword(typing);
+		setIncorrect(false);
 	}
 
 	async function handleSubmit(e) {
@@ -30,6 +41,7 @@ function Login() {
 				navigate("/home");
 			} else {
 				console.log("Incorrect username/password");
+				setIncorrect(true);
 			}
 		} catch (error) {
 			console.log("Failure to submit login request");
@@ -39,33 +51,46 @@ function Login() {
 	return (
 		<div className="login-page">
 			<br />
-			<h3>Login</h3>
+
+			<div className="minor-header-stripe">
+				<br />
+				<h3>Login</h3>
+				<br />
+			</div>
+
+			{incorrect ? (
+				<span className="error">Incorrect Username or Password</span>
+			) : (
+				""
+			)}
+			<br />
 			<br />
 			<form onSubmit={handleSubmit}>
 				<div className="login-form">
 					<label>Username: </label>
 					<input
-						onChange={(e) => setUsername(e.target.value)}
+						onChange={(e) => handleUsernameTyping(e.target.value)}
 						type="text"
-						placeholder="Enter Username Here"
+						placeholder="Enter Username"
 						name="username"
 					/>
 					<br />
 					<br />
+					<br />
 					<label>Password: </label>
 					<input
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => handlePasswordTyping(e.target.value)}
 						type="password"
-						placeholder="Enter Password Here"
+						placeholder="Enter Password"
 						name="password"
 					/>
 					<br />
 					<br />
 					<br />
-					<button type="submit">Login</button>{" "}
 					<button type="button" onClick={handleCancel}>
 						Cancel
-					</button>
+					</button>{" "}
+					<button type="submit">Login</button>
 				</div>
 			</form>
 		</div>

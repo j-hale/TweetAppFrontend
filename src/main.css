@@ -108,6 +108,26 @@
 	background-color: #e7f5ff;
 }
 
+.register-page button {
+	background-color: #cceaff;
+	border-radius: 25px;
+	padding: 6px;
+}
+
+.register-page button:hover {
+	background-color: #e7f5ff;
+}
+
+.login-page button {
+	background-color: #cceaff;
+	border-radius: 25px;
+	padding: 6px;
+}
+
+.login-page button:hover {
+	background-color: #e7f5ff;
+}
+
 .reply-list {
 	border-radius: 100px;
 }
@@ -140,6 +160,14 @@
 
 .profile-tile {
 	background-color: #cceaff;
+}
+
+.error {
+	color: #ff6200;
+}
+
+.minor-header-stripe {
+	background-color: #ffeacc;
 }
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
