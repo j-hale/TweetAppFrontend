@@ -274,7 +274,7 @@ function Register() {
 				});
 				console.log("register request succesful");
 
-				navigate("/home");
+				navigate("/login");
 			} catch (error) {
 				alert("Failure to register");
 				console.log("Failure to submit register request");

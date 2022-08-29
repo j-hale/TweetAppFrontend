@@ -11,6 +11,11 @@ function TweetTile(props) {
 	const [likeCount, setLikeCount] = useState(tweet.userLikes.length);
 	const appState = useContext(StateContext);
 	const navigate = useNavigate();
+	const activeUsername = appState.activeUser
+		? JSON.parse(appState.activeUser).loginID
+		: null;
+
+	const [tweetPresent, setTweetPresent] = useState(true);
 
 	useEffect(() => {
 		async function getReplyList() {
@@ -48,6 +53,30 @@ function TweetTile(props) {
 		}
 	}, []);
 
+	async function handleDelete() {
+		if (appState.activeUser != null) {
+			const activeUser = JSON.parse(appState.activeUser);
+			const username = activeUser.loginID;
+			try {
+				const response = await Axios.delete(
+					"http://localhost:8080/api/v1.0/tweets/" +
+						username +
+						"/delete/" +
+						tweet.tweetID
+				);
+				if (response.data) {
+					setTweetPresent(false);
+				} else {
+					console.log("Delete failed for some reason");
+				}
+			} catch (error) {
+				console.log("Failure to submit get delete request");
+			}
+		} else {
+			console.log("You must be logged in to delete a tweet");
+		}
+	}
+
 	async function handleLike() {
 		if (appState.activeUser != null) {
 			const activeUser = JSON.parse(appState.activeUser);
@@ -77,13 +106,18 @@ function TweetTile(props) {
 		navigate("/reply/" + tweet.tweetID);
 	}
 
-	return (
+	function handleUpdate() {
+		navigate("/update/" + tweet.tweetID);
+	}
+
+	return tweetPresent ? (
 		<div className="tweet-tile">
 			<hr />
 			<Link className="tweet-user" to={"/profile/" + tweet.user.loginID}>
+				{" "}
 				<strong>
 					<u>{tweet.user.loginID}</u>
-				</strong>
+				</strong>{" "}
 			</Link>
 			<p>{tweet.body}</p>
 			<p className="tweet-tag">
@@ -97,9 +131,23 @@ function TweetTile(props) {
 			{liked ? "LIKED" : <button onClick={handleLike}>Like</button>}{" "}
 			<button onClick={handleReply}>Reply</button>
 			<p></p>
+			<div className="edit">
+				{activeUsername === tweet.user.loginID ? (
+					<button onClick={handleUpdate}>Update</button>
+				) : (
+					""
+				)}{" "}
+				{activeUsername === tweet.user.loginID ? (
+					<button onClick={handleDelete}>Delete</button>
+				) : (
+					""
+				)}
+			</div>
 			<ReplyList replyArray={replyArray} />
 			<hr />
 		</div>
+	) : (
+		<></>
 	);
 }
 

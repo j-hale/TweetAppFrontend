@@ -15,11 +15,14 @@ import CreateTweet from "./components/CreateTweet";
 import StateContext from "./StateContext";
 import DispatchContext from "./DispatchContext";
 import ReplyForm from "./components/ReplyForm";
+import UpdateForm from "./components/UpdateForm";
+import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
 	const initialState = {
 		loggedIn: Boolean(localStorage.getItem("activeUser")),
 		activeUser: localStorage.getItem("activeUser"),
+		pageSelected: "home",
 	};
 
 	function reducer(draft, action) {
@@ -28,6 +31,7 @@ function App() {
 				localStorage.setItem("activeUser", JSON.stringify(action.responseData));
 				draft.loggedIn = true;
 				draft.activeUser = JSON.stringify(action.responseData);
+				draft.pageSelected = "home";
 				// console.log("Debugging lines:");
 				// console.log(draft.activeUser);
 				// console.log(JSON.parse(localStorage.getItem("activeUser")));
@@ -36,7 +40,10 @@ function App() {
 				localStorage.removeItem("activeUser");
 				draft.loggedIn = false;
 				draft.activeUser = null;
+				draft.pageSelected = "home";
 				break;
+			case "selectPage":
+				draft.pageSelected = action.pageName;
 		}
 	}
 
@@ -48,7 +55,9 @@ function App() {
 				<BrowserRouter>
 					<Header />
 					<Routes>
+						<Route path="/forgot-password" element={<ForgotPassword />} />
 						<Route path="/reply/:targetTweetID" element={<ReplyForm />} />
+						<Route path="/update/:targetTweetID" element={<UpdateForm />} />
 						<Route path="/profile/:targetUsername" element={<Profile />} />
 						<Route path="/users" element={<Users />} />
 						<Route path="/tweets" element={<Tweets />} />

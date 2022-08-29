@@ -91,6 +91,9 @@ function Login() {
 						Cancel
 					</button>{" "}
 					<button type="submit">Login</button>
+					<br />
+					<br />
+					<Link to="/forgot-password">Forgot Password?</Link>
 				</div>
 			</form>
 		</div>

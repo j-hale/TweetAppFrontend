@@ -11,7 +11,11 @@ function ReplyTile(props) {
 				<u>{reply.user.loginID}</u>
 			</Link>
 			<p>{reply.body}</p>
-			<p className="reply-tag">{reply.tag}</p>
+			<p className="reply-tag">
+				<strong>
+					<i>{reply.tag}</i>
+				</strong>
+			</p>
 		</div>
 	);
 }
