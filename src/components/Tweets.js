@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TweetTile from "./TweetTile";
 import Axios from "axios";
+import { APIBaseString } from "../Constants";
 function Tweets() {
 	//plan to load tweets: make the api call for all tweets the first time and put them in the array, then make an appropriate call again
 	//if user types in the search bar
@@ -9,9 +10,7 @@ function Tweets() {
 
 	async function getTweetList() {
 		try {
-			const response = await Axios.get(
-				"http://localhost:8080/api/v1.0/tweets/all"
-			);
+			const response = await Axios.get(APIBaseString + "all");
 			if (response.data) {
 				setTweetArray(response.data);
 			} else {
@@ -32,9 +31,7 @@ function Tweets() {
 			getTweetList();
 		} else {
 			try {
-				const response = await Axios.get(
-					"http://localhost:8080/api/v1.0/tweets/" + searchText
-				);
+				const response = await Axios.get(APIBaseString + searchText);
 				if (response.data) {
 					setTweetArray(response.data);
 				} else {

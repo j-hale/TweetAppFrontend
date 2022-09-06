@@ -1,6 +1,7 @@
 import { React, useEffect, useState, useContext } from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { APIBaseString } from "../Constants";
 
 function ForgotPassword() {
 	const navigate = useNavigate();
@@ -30,9 +31,7 @@ function ForgotPassword() {
 
 	async function fetchUser() {
 		try {
-			const response = await Axios.get(
-				"http://localhost:8080/api/v1.0/tweets/users/" + username
-			);
+			const response = await Axios.get(APIBaseString + "users/" + username);
 			if (response.data) {
 				if (response.data.email === email) {
 					setForgottenPassword(response.data.password);

@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Axios from "axios";
 import StateContext from "../StateContext";
 import { useParams } from "react-router-dom";
+import { APIBaseString } from "../Constants";
 
 function Profile() {
 	const appState = useContext(StateContext);
@@ -17,9 +18,7 @@ function Profile() {
 	useEffect(() => {
 		async function fetchUserTweets() {
 			try {
-				const response = await Axios.get(
-					"http://localhost:8080/api/v1.0/tweets/" + targetUsername
-				);
+				const response = await Axios.get(APIBaseString + targetUsername);
 				if (response.data) {
 					setTweetArray(response.data);
 				} else {
@@ -38,7 +37,7 @@ function Profile() {
 		async function fetchUser() {
 			try {
 				const response = await Axios.get(
-					"http://localhost:8080/api/v1.0/tweets/users/" + targetUsername
+					APIBaseString + "users/" + targetUsername
 				);
 				if (response.data) {
 					setRetrievedUsername(response.data.loginID);

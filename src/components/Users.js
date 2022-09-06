@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import UserTile from "./UserTile";
 import Axios from "axios";
+import { APIBaseString } from "../Constants";
 function Users() {
 	const [userArray, setUserArray] = useState([]);
 	const [searchText, setSearchText] = useState("");
 
 	async function getUserList() {
 		try {
-			const response = await Axios.get(
-				"http://localhost:8080/api/v1.0/tweets/users/all"
-			);
+			const response = await Axios.get(APIBaseString + "users/all");
 			if (response.data) {
 				setUserArray(response.data);
 			} else {
@@ -32,7 +31,7 @@ function Users() {
 		} else {
 			try {
 				const response = await Axios.get(
-					"http://localhost:8080/api/v1.0/tweets/users/search/" + searchText
+					APIBaseString + "users/search/" + searchText
 				);
 				if (response.data) {
 					setUserArray(response.data);

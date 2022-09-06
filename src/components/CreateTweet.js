@@ -2,6 +2,7 @@ import { React, useEffect, useState, useContext } from "react";
 import StateContext from "../StateContext";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
+import { APIBaseString } from "../Constants";
 
 function CreateTweet() {
 	const [body, setBody] = useState();
@@ -19,13 +20,10 @@ function CreateTweet() {
 			const activeUser = JSON.parse(appState.activeUser);
 			const username = activeUser.loginID;
 			try {
-				await Axios.post(
-					"http://localhost:8080/api/v1.0/tweets/" + username + "/add",
-					{
-						body: body,
-						tag: tag,
-					}
-				);
+				await Axios.post(APIBaseString + username + "/add", {
+					body: body,
+					tag: tag,
+				});
 				console.log(appState.activeUser);
 				console.log(username);
 				console.log(body);

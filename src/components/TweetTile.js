@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import StateContext from "../StateContext";
+import { APIBaseString } from "../Constants";
 
 function TweetTile(props) {
 	const tweet = props.tweet;
@@ -21,9 +22,7 @@ function TweetTile(props) {
 		async function getReplyList() {
 			try {
 				const response = await Axios.get(
-					"http://localhost:8080/api/v1.0/tweets/tweet" +
-						tweet.tweetID +
-						"/replies"
+					APIBaseString + "tweet" + tweet.tweetID + "/replies"
 				);
 				if (response.data) {
 					setReplyArray(response.data);
@@ -59,10 +58,7 @@ function TweetTile(props) {
 			const username = activeUser.loginID;
 			try {
 				const response = await Axios.delete(
-					"http://localhost:8080/api/v1.0/tweets/" +
-						username +
-						"/delete/" +
-						tweet.tweetID
+					APIBaseString + username + "/delete/" + tweet.tweetID
 				);
 				if (response.data) {
 					setTweetPresent(false);
@@ -83,10 +79,7 @@ function TweetTile(props) {
 			const username = activeUser.loginID;
 			try {
 				const response = await Axios.put(
-					"http://localhost:8080/api/v1.0/tweets/" +
-						username +
-						"/like/" +
-						tweet.tweetID
+					APIBaseString + username + "/like/" + tweet.tweetID
 				);
 				if (response.data) {
 					setLikeCount(likeCount + 1);

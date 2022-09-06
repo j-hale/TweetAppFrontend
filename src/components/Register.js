@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useImmerReducer } from "use-immer";
+import { APIBaseString } from "../Constants";
 
 function Register() {
 	const [errorText, setErrorText] = useState("");
@@ -157,8 +158,7 @@ function Register() {
 			async function fetchUser() {
 				try {
 					const response = await Axios.get(
-						"http://localhost:8080/api/v1.0/tweets/users/" +
-							state.username.value
+						APIBaseString + "users/" + state.username.value
 					);
 					if (response.data) {
 						dispatch({ type: "usernameNotUnique" });
@@ -197,7 +197,7 @@ function Register() {
 	async function duplicateUsernameForceCheck() {
 		try {
 			const response = await Axios.get(
-				"http://localhost:8080/api/v1.0/tweets/users/" + state.username.value
+				APIBaseString + "users/" + state.username.value
 			);
 			if (response.data) {
 				return true;
@@ -265,7 +265,7 @@ function Register() {
 	async function handleSubmitAsync() {
 		if (state.password.value === state.confirmPassword.value) {
 			try {
-				await Axios.post("http://localhost:8080/api/v1.0/tweets/register", {
+				await Axios.post(APIBaseString + "register", {
 					loginID: state.username.value,
 					firstName: state.firstName.value,
 					lastName: state.lastName.value,

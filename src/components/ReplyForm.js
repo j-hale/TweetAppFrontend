@@ -2,6 +2,7 @@ import { React, useEffect, useState, useContext } from "react";
 import StateContext from "../StateContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
+import { APIBaseString } from "../Constants";
 
 function ReplyForm() {
 	const { targetTweetID } = useParams();
@@ -16,7 +17,7 @@ function ReplyForm() {
 		async function fetchTweet() {
 			try {
 				const response = await Axios.get(
-					"http://localhost:8080/api/v1.0/tweets/tweet/" + targetTweetID
+					APIBaseString + "tweet/" + targetTweetID
 				);
 				if (response.data) {
 					setTargetUsername(response.data.user.loginID);
@@ -41,16 +42,10 @@ function ReplyForm() {
 			const activeUser = JSON.parse(appState.activeUser);
 			const username = activeUser.loginID;
 			try {
-				await Axios.post(
-					"http://localhost:8080/api/v1.0/tweets/" +
-						username +
-						"/reply/" +
-						targetTweetID,
-					{
-						body: body,
-						tag: tag,
-					}
-				);
+				await Axios.post(APIBaseString + username + "/reply/" + targetTweetID, {
+					body: body,
+					tag: tag,
+				});
 
 				navigate("/tweets");
 			} catch (error) {

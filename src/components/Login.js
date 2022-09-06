@@ -3,6 +3,7 @@ import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import DispatchContext from "../DispatchContext";
 import StateContext from "../StateContext";
+import { APIBaseString } from "../Constants";
 
 function Login() {
 	const [username, setUsername] = useState("");
@@ -29,13 +30,10 @@ function Login() {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			const response = await Axios.post(
-				"http://localhost:8080/api/v1.0/tweets/login",
-				{
-					loginID: username,
-					password: password,
-				}
-			);
+			const response = await Axios.post(APIBaseString + "login", {
+				loginID: username,
+				password: password,
+			});
 			if (response.data) {
 				appDispatch({ type: "login", responseData: response.data });
 				navigate("/home");
